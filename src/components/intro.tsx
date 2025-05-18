@@ -81,7 +81,7 @@ export const Intro = () => {
         </Button>
         <Button variant="outline" size="icon" asChild>
           <Link
-            href="www.linkedin.com/in/adnan-fito-dharmawan-2bb62a23a"
+            href="https://linkedin.com/in/adnan-fito-dharmawan-2bb62a23a"
             aria-label="Linkedin"
             target="_blank"
           >

@@ -19,7 +19,7 @@ export const Experience = () => {
       className="my-10 scroll-mt-28 md:mb-20"
     >
       <SectionHeading
-        heading="My Experience"
+        heading="My Experiences"
         content="Professional experience that I have accumulated over several years."
       />
       <div className="relative max-w-screen-md">

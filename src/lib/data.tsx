@@ -76,20 +76,12 @@ export const projectsData = [
 
 export const experiencesData = [
   {
-    title: 'Web Development Intern',
-    company: 'Bakrie Center Foundation, West Jakarta',
+    title: 'Web Developer',
+    company: 'Freelancing, remote',
     description:
-      'During this internship, I focused on two key areas: creating Wordpress plugins and managing website content, plugins, and settings.',
-    period: '2024',
-    technologies: ['HTML', 'CSS', 'JavaScript', 'Wordpress'],
-  },
-  {
-    title: 'Laboratory Assistant',
-    company: 'Jenderal Soedirman University, Purbalingga',
-    description:
-      'During my time as a laboratory assistant for Programming Algorithms, Data Structures, and Computer Networks courses, I guided and mentored junior students through hands-on practical sessions. This role enhanced my technical expertise and strengthened my communication and leadership skills in an academic setting.',
-    period: '2023 - present',
-    technologies: ['C++', 'C'],
+      'As a freelancer, I worked on full-stack projects using Laravel and served as a back-end developer in NestJS-based applications. I was responsible for designing APIs, managing databases, and ensuring seamless integration with front-end systems, while maintaining code quality and meeting client requirements.',
+    period: '2024 - present',
+    technologies: ['Nest.js', 'TypeScript', 'Laravel', 'PHP'],
   },
   {
     title: 'Robotics Instructor',
@@ -100,12 +92,20 @@ export const experiencesData = [
     technologies: ['Arduino', 'C++', 'Microcontrollers'],
   },
   {
-    title: 'Web Developer',
-    company: 'Freelancing, remote',
+    title: 'Laboratory Assistant',
+    company: 'Jenderal Soedirman University, Purbalingga',
     description:
-      'As a freelancer, I worked on full-stack projects using Laravel and served as a back-end developer in NestJS-based applications. I was responsible for designing APIs, managing databases, and ensuring seamless integration with front-end systems, while maintaining code quality and meeting client requirements.',
-    period: '2024 - present',
-    technologies: ['Nest.js', 'TypeScript', 'Laravel', 'PHP'],
+      'During my time as a laboratory assistant for Programming Algorithms, Data Structures, and Computer Networks courses, I guided and mentored junior students through hands-on practical sessions. This role enhanced my technical expertise and strengthened my communication and leadership skills in an academic setting.',
+    period: '2023 - present',
+    technologies: ['C++', 'C'],
+  },
+  {
+    title: 'Web Development Intern',
+    company: 'Bakrie Center Foundation, West Jakarta',
+    description:
+      'During this internship, I focused on two key areas: creating Wordpress plugins and managing website content, plugins, and settings.',
+    period: '2024',
+    technologies: ['HTML', 'CSS', 'JavaScript', 'Wordpress'],
   },
 ] as const;
 
