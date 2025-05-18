@@ -32,7 +32,7 @@ export const projectsData = [
     technologies: ['Laravel', 'PHP', 'Mysql'],
     links: {
       preview: 'https://next-starter-skolaczk.vercel.app',
-      github: 'https://github.com/oriontechno/budigadai',
+      github: 'https://new.budigadai.com',
       githubApi: 'https://api.github.com/repos/Skolaczk/next-starter',
     },
   },
@@ -68,7 +68,7 @@ export const projectsData = [
     technologies: ['Tailwind', 'JavaScript', ' PHP'],
     links: {
       preview: 'https://socialhub-ms.vercel.app/',
-      github: 'https://github.com/adnanfito/plantify',
+      github: 'https://github.com/adnanfito/plantify.io',
       githubApi: 'https://api.github.com/repos/Skolaczk/SocialHub',
     },
   },
