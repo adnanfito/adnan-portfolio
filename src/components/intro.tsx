@@ -2,8 +2,6 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useTypewriter, Cursor } from 'react-simple-typewriter';
-
 import { ScrambleText } from '@/components/scramble-text'; // atau sesuaikan path-nya
 
 import { Button } from '@/components/button';
@@ -12,15 +10,6 @@ import { useSectionInView } from '@/hooks/use-section-in-view';
 
 export const Intro = () => {
   const { ref } = useSectionInView('Home');
-
-  // kata-kata yang ingin ditampilkan secara typing effect
-  const [text] = useTypewriter({
-    words: ['Web Developer', 'AI Enthusiast', 'ML Engineer'],
-    loop: 0, // 0 = infinite loop
-    typeSpeed: 80,
-    deleteSpeed: 50,
-    delaySpeed: 2000,
-  });
 
   return (
     <section
