@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const TITLES = ['Web Developer', 'AI Enthusiast', 'ML Engineer'];
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
@@ -69,7 +69,7 @@ export const ScrambleText = () => {
   }, [titleIndex]);
 
   return (
-    <span className="font-mono text-3xl text-transparent bg-clip-text bg-gradient-to-r from-rose-700 to-pink-600 sm:text-5xl">
+    <span className="bg-gradient-to-r from-rose-700 to-pink-600 bg-clip-text font-mono text-3xl text-transparent sm:text-5xl">
       {displayedText}
     </span>
   );

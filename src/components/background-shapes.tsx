@@ -14,7 +14,7 @@ export const BackgroundShapes = () => {
   return (
     <div
       ref={ref}
-      className="fixed inset-0 -z-10 overflow-hidden pointer-events-none"
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
     >
       {/* Circle */}
       <motion.div
@@ -28,10 +28,10 @@ export const BackgroundShapes = () => {
           rounded-full
           bg-gradient-to-tr
           from-pink-300 to-purple-300
-          blur-2xl
-          dark:from-pink-700 dark:to-purple-700
-          dark:opacity-30
           opacity-70
+          blur-2xl dark:from-pink-700
+          dark:to-purple-700
+          dark:opacity-30
         "
       />
 
@@ -42,15 +42,15 @@ export const BackgroundShapes = () => {
         animate={{ opacity: 0.3, rotate: [0, 5, -5, 0] }}
         transition={{ duration: 5, ease: 'easeInOut' }}
         className="
-          absolute -bottom-40 -left-40 
-          h-120 w-60
+          h-120 absolute -bottom-40 
+          -left-40 w-60
           rotate-12 skew-y-12
           bg-gradient-to-b
           from-indigo-400 via-white/30 to-indigo-400
-          blur-xl
-          dark:from-indigo-700 dark:via-indigo-900/40 dark:to-indigo-700
-          dark:opacity-20
           opacity-50
+          blur-xl dark:from-indigo-700 dark:via-indigo-900/40
+          dark:to-indigo-700
+          dark:opacity-20
         "
       />
 

@@ -2,10 +2,10 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ScrambleText } from '@/components/scramble-text'; // atau sesuaikan path-nya
 
 import { Button } from '@/components/button';
 import { Icons } from '@/components/icons';
+import { ScrambleText } from '@/components/scramble-text'; // atau sesuaikan path-nya
 import { useSectionInView } from '@/hooks/use-section-in-view';
 
 export const Intro = () => {
