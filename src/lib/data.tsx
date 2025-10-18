@@ -65,10 +65,33 @@ export const projectsData = [
     title: 'Plantify',
     description:
       'E-commerce website design for plant sales, built with Tailwind CSS and JavaScript for a clean UI.',
-    technologies: ['Tailwind', 'JavaScript', ' PHP'],
+    technologies: ['Tailwind', 'JavaScript', 'PHP'],
     links: {
       preview: 'https://socialhub-ms.vercel.app/',
       github: 'https://github.com/adnanfito/plantify.io',
+      githubApi: 'https://api.github.com/repos/Skolaczk/SocialHub',
+    },
+  },
+  {
+    image: '/images/tokudigital.webp',
+    title: 'TokuDigital',
+    description: 'Top-up Game Platform using NextJs and NestJs API.',
+    technologies: ['NestJS', 'NextJS', 'TypeScript', 'Xendit', 'Prisma'],
+    links: {
+      preview: 'https://socialhub-ms.vercel.app/',
+      github: 'https://tokudigital.com/',
+      githubApi: 'https://api.github.com/repos/Skolaczk/SocialHub',
+    },
+  },
+  {
+    image: '/images/glucoheart.webp',
+    title: 'GlucoHeart',
+    description:
+      'GlucoHeart is a digital health app designed to help users monitor, manage, and better understand Diabetes Mellitus (DM) and Hypertension.',
+    technologies: ['NextJS', 'Flutter', 'NestJS', 'TypeScript'],
+    links: {
+      preview: 'https://socialhub-ms.vercel.app/',
+      github: 'https://github.com/oriontechno/glucoheart',
       githubApi: 'https://api.github.com/repos/Skolaczk/SocialHub',
     },
   },
