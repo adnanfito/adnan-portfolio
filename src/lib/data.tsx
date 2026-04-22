@@ -28,7 +28,7 @@ export const projectsData = [
     image: '/images/foldin.webp',
     title: 'Foldin',
     description:
-      'Community platform featuring robust event registration and waitlist management modules[cite: 10]. The backend architecture was successfully migrated from NestJS to Go for enhanced performance and scalability.',
+      'Community platform featuring robust event registration and waitlist management modules. The backend architecture was successfully migrated from NestJS to Go for enhanced performance and scalability.',
     technologies: ['Go', 'NestJS', 'Prisma', 'Docker'],
     links: {
       preview: '',
