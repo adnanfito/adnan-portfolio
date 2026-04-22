@@ -25,15 +25,38 @@ export const links = [
 
 export const projectsData = [
   {
-    image: '/images/budigadai.webp',
-    title: 'Budi Gadai Profile',
+    image: '/images/foldin.webp',
+    title: 'Foldin',
     description:
-      'Company profile website built with Laravel, featuring responsive design and admin dashboard.',
-    technologies: ['Laravel', 'PHP', 'Mysql'],
+      'Community platform featuring robust event registration and waitlist management modules[cite: 10]. The backend architecture was successfully migrated from NestJS to Go for enhanced performance and scalability.',
+    technologies: ['Go', 'NestJS', 'Prisma', 'Docker'],
     links: {
-      preview: 'https://next-starter-skolaczk.vercel.app',
-      github: 'https://new.budigadai.com',
-      githubApi: 'https://api.github.com/repos/Skolaczk/next-starter',
+      preview: '',
+      github: 'https://foldin.space/',
+      githubApi: 'https://api.github.com/repos/Skolaczk/SocialHub',
+    },
+  },
+  {
+    image: '/images/glucoheart.webp',
+    title: 'GlucoHeart',
+    description:
+      'GlucoHeart is a digital health app designed to help users monitor, manage, and better understand Diabetes Mellitus (DM) and Hypertension.',
+    technologies: ['NextJS', 'Flutter', 'NestJS', 'TypeScript'],
+    links: {
+      preview: 'https://socialhub-ms.vercel.app/',
+      github: 'https://github.com/oriontechno/glucoheart',
+      githubApi: 'https://api.github.com/repos/Skolaczk/SocialHub',
+    },
+  },
+  {
+    image: '/images/tokudigital.webp',
+    title: 'TokuDigital',
+    description: 'Top-up Game Platform using NextJs and NestJs API.',
+    technologies: ['NestJS', 'NextJS', 'TypeScript', 'Xendit', 'Prisma'],
+    links: {
+      preview: 'https://socialhub-ms.vercel.app/',
+      github: 'https://tokudigital.com/',
+      githubApi: 'https://api.github.com/repos/Skolaczk/SocialHub',
     },
   },
   {
@@ -46,6 +69,18 @@ export const projectsData = [
       preview: 'https://socialhub-ms.vercel.app/',
       github: 'https://poptbindonesia.org',
       githubApi: 'https://api.github.com/repos/Skolaczk/SocialHub',
+    },
+  },
+  {
+    image: '/images/budigadai.webp',
+    title: 'Budi Gadai Profile',
+    description:
+      'Company profile website built with Laravel, featuring responsive design and admin dashboard.',
+    technologies: ['Laravel', 'PHP', 'Mysql'],
+    links: {
+      preview: 'https://next-starter-skolaczk.vercel.app',
+      github: 'https://new.budigadai.com',
+      githubApi: 'https://api.github.com/repos/Skolaczk/next-starter',
     },
   },
   {
@@ -72,63 +107,64 @@ export const projectsData = [
       githubApi: 'https://api.github.com/repos/Skolaczk/SocialHub',
     },
   },
-  {
-    image: '/images/tokudigital.webp',
-    title: 'TokuDigital',
-    description: 'Top-up Game Platform using NextJs and NestJs API.',
-    technologies: ['NestJS', 'NextJS', 'TypeScript', 'Xendit', 'Prisma'],
-    links: {
-      preview: 'https://socialhub-ms.vercel.app/',
-      github: 'https://tokudigital.com/',
-      githubApi: 'https://api.github.com/repos/Skolaczk/SocialHub',
-    },
-  },
-  {
-    image: '/images/glucoheart.webp',
-    title: 'GlucoHeart',
-    description:
-      'GlucoHeart is a digital health app designed to help users monitor, manage, and better understand Diabetes Mellitus (DM) and Hypertension.',
-    technologies: ['NextJS', 'Flutter', 'NestJS', 'TypeScript'],
-    links: {
-      preview: 'https://socialhub-ms.vercel.app/',
-      github: 'https://github.com/oriontechno/glucoheart',
-      githubApi: 'https://api.github.com/repos/Skolaczk/SocialHub',
-    },
-  },
 ] as const;
 
 export const experiencesData = [
   {
-    title: 'Web Developer',
-    company: 'Freelancing, remote',
+    title: 'Backend Engineer (Freelance)',
+    company: 'Daylight Remote',
     description:
-      'As a freelancer, I worked on full-stack projects using Laravel and served as a back-end developer in NestJS-based applications. I was responsible for designing APIs, managing databases, and ensuring seamless integration with front-end systems, while maintaining code quality and meeting client requirements.',
-    period: '2024 - present',
-    technologies: ['Nest.js', 'TypeScript', 'Laravel', 'PHP'],
+      'Engineered a scalable backend architecture for the "Foldin" web, successfully executing a system migration from NestJS to Go to enhance backend performance and scalability. Deployed robust event registration and waitlist management modules utilizing Prisma and Docker. Optimized database schema migrations and containerized the application environment, accelerating deployment cycles by ~30% and ensuring high availability for over 10000+ anticipated waitlist users.',
+    period: 'Feb 2026 - Present',
+    technologies: ['Go', 'NestJS', 'Prisma', 'Docker'],
   },
   {
-    title: 'Robotics Instructor',
-    company: 'SD Al Irsyad Al Islamiyyah 1 Purwokerto',
+    title: 'Web Developer (Freelance)',
+    company: 'Self-Employed (via projects.co.id) Remote',
     description:
-      'I taught robotics to elementary school students (grades 3–6), introducing them to hardware components and guiding them through programming microcontrollers. The lessons were designed to build foundational knowledge in electronics and coding through hands-on learning.',
-    period: '2025 - present',
-    technologies: ['Arduino', 'C++', 'Microcontrollers'],
+      "Engineered a high-performance backend API for Tokudigital.com using NestJS and successfully integrated third-party payment gateways (Xendit). Architected a secure mobile backend using NestJS and Supabase, implementing a strict 3-tier Role-Based Access Control (RBAC) and integrating Firebase Cloud Messaging (FCM). Built scalable backends for a Blood Sugar Monitoring application and a Student Asset Lending System utilizing NestJS, Drizzle ORM, and Laravel 11. Streamlined academic workflows by building 'SILAT' (Internship Administration System) using PHP.",
+    period: 'Feb 2025 - Present',
+    technologies: [
+      'NestJS',
+      'Xendit',
+      'Supabase',
+      'Firebase',
+      'Drizzle ORM',
+      'Laravel 11',
+      'PHP',
+    ],
   },
   {
-    title: 'Laboratory Assistant',
-    company: 'Jenderal Soedirman University, Purbalingga',
+    title: 'Robotics Extracurricular Instructor',
+    company: 'Al-Irsyad Al-Islamiyyah Purwokerto',
     description:
-      'During my time as a laboratory assistant for Programming Algorithms, Data Structures, and Computer Networks courses, I guided and mentored junior students through hands-on practical sessions. This role enhanced my technical expertise and strengthened my communication and leadership skills in an academic setting.',
-    period: '2023 - present',
-    technologies: ['C++', 'C'],
+      'Mentored and facilitated a class of 30 students in robotics fundamentals, cultivating problem-solving skills and foundational programming knowledge through structured weekly sessions.',
+    period: 'Mar 2025 - Dec 2025',
+    technologies: ['Robotics', 'Programming'],
   },
   {
-    title: 'Web Development Intern',
-    company: 'Bakrie Center Foundation, West Jakarta',
+    title: 'IT Development Intern',
+    company: 'POP TB Indonesia (Bakrie Center Foundation) - West Jakarta',
     description:
-      'During this internship, I focused on two key areas: creating Wordpress plugins and managing website content, plugins, and settings.',
-    period: '2024',
-    technologies: ['HTML', 'CSS', 'JavaScript', 'Wordpress'],
+      "Revamped the corporate profile website utilizing WordPress to significantly enhance the organization's digital presence and user interface. Executed comprehensive Quality Assurance (QA) testing over a 4-month period for the laportbc.id web portal and LaporTBC mobile application. Delivered weekly QA and bug-tracking reports, providing actionable insights to ensure continuous application stability.",
+    period: 'Sep 2024 - Jan 2025',
+    technologies: ['WordPress', 'QA Testing'],
+  },
+  {
+    title: 'Data Entry and Web Developer Intern',
+    company: 'B-Universe Tangerang',
+    description:
+      'Managed and audited an inventory database of over 3,000 enterprise assets distributed across two warehouse facilities. Engineered an AI-powered chatbot within the Asset Management System utilizing Flowise AI, significantly streamlining data retrieval and search capabilities for operational efficiency.',
+    period: 'Jul 2024 - Aug 2024',
+    technologies: ['Flowise AI', 'Database Management'],
+  },
+  {
+    title: 'Assistant Laboratory Coordinator & Teaching Assistant',
+    company: 'Jendral Soedirman University Purbalingga',
+    description:
+      'Secured the teaching role from a highly competitive top 5% applicant pool, progressing to Laboratory Coordinator to direct operations and lead 5 teaching assistants. Instructed and mentored over 190+ students across multiple semesters in core IT subjects, including Computer Networks, Data Structures, and Algorithms. Authored 4 comprehensive practicum modules via Notion and formulated secure assessments via Safe Exam Browser.',
+    period: 'Aug 2023 - Jun 2025',
+    technologies: ['Cisco Packet Tracer', 'C++', 'Notion', 'Safe Exam Browser'],
   },
 ] as const;
 
@@ -141,11 +177,12 @@ export const skillsData = [
   { icon: <Icons.typescript className="size-12" /> },
   { icon: <Icons.react className="size-12" /> },
   // { icon: <Icons.redux className="size-12" /> },
-  { icon: <Icons.nextjs className="size-12" /> },
+  // { icon: <Icons.nextjs className="size-12" /> },
   { icon: <Icons.nestjs className="size-12" /> },
   { icon: <Icons.prisma className="size-12" /> },
-  // { icon: <Icons.docker className="size-12" /> },
-  // { icon: <Icons.laravel className="size-12" /> },
+  { icon: <Icons.docker className="size-12" /> },
+
+  { icon: <Icons.laravel className="size-12" /> },
   { icon: <Icons.tensorflow className="size-12" /> },
   { icon: <Icons.keras className="size-12" /> },
   { icon: <Icons.python className="size-12" /> },
