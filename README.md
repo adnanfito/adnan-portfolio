@@ -24,7 +24,20 @@ The integration must be connected to the database (••• → Connections). C
 | `published`    | Checkbox     | only checked rows are shown                                                 |
 | `order`        | Number       | optional — sorts ascending, otherwise by creation time                      |
 
-On Vercel the page is cached with ISR and re-fetched from Notion at most every 5 minutes.
+On Vercel the page is cached with ISR and re-fetched from Notion at most every minute.
+
+## Instant refresh from Notion
+
+Edits in Notion can rebuild the page right away through a webhook:
+
+1. In Vercel, add `REVALIDATE_TOKEN` (any random string, 32+ chars) and redeploy — it is read at build time.
+2. In the Notion integration settings → **Webhooks** → create a subscription to
+   `https://<your-domain>/api/notion-webhook` with the `page.*` events.
+3. Notion posts a `verification_token`; find it in the Vercel function logs
+   (`[notion-webhook] verification_token = ...`) and paste it into Notion's **Verify** dialog.
+4. Add that token to Vercel as `NOTION_WEBHOOK_SECRET` and redeploy.
+
+Notion batches some events, so updates show up within a minute or two.
 
 ## Scripts
 
