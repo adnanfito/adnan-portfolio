@@ -120,11 +120,44 @@
 		return d - Math.PI;
 	};
 
+	/** Past this lid angle the hands let go and move to the keyboard (they can't reach further) */
+	const GUIDE_UNTIL = 1.25;
+	/** The hands have hold of the lid; stays latched until they let go, so the lid never stutters */
+	let holding = false;
+	/** Lid angular velocity: the lid moves on a critically damped spring (eases in and out) */
+	let lidVel = 0;
+	/** 0 = hands on the lid, 1 = hands on the keyboard; eased in between */
+	let typing = 0;
+	const gripL = new Vector3();
+	const gripR = new Vector3();
+	const keyL = new Vector3();
+	const keyR = new Vector3();
+	/**
+	 * Where the fingers hold the lid: its front lip, so once it is up they are already over the
+	 * top. Past the hands' reach this is where they let go (the lid at GUIDE_UNTIL).
+	 */
+	const edge = (out: Vector3, x: number) => {
+		const angle = lid!.rotation.x;
+		const clamped = Math.max(angle, -GUIDE_UNTIL);
+		if (clamped !== angle) {
+			lid!.rotation.x = clamped;
+			lid!.updateMatrixWorld();
+		}
+		lid!.localToWorld(out.set(x, 0, LAPTOP.depth + ARM.hand * 0.65)).sub(CHARACTER_POS);
+		if (clamped !== angle) {
+			lid!.rotation.x = angle;
+			lid!.updateMatrixWorld();
+		}
+		return out;
+	};
+	const easeInOut = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+
 	const toLocal = (out: Vector3, obj: Group, x: number, y: number, z: number) =>
 		obj.localToWorld(out.set(x, y, z)).sub(CHARACTER_POS);
 
 	const tmpL = new Vector3();
 	const tmpR = new Vector3();
+	const tmpArc = new Vector3();
 	let lastScreen = false;
 	let lastPaper = false;
 
@@ -152,14 +185,29 @@
 		let lidGoal = goal.lid;
 		let posGoal = goal.pos;
 		if (moving > 0.06) lidGoal = 0;
-		if (moving > 0.06 && lap.lid > 0.25) posGoal = [lap.x, lap.y, lap.z];
+		if (moving > 0.06 && lap.lid > 0.08) posGoal = [lap.x, lap.y, lap.z];
+		// The hands move the lid: it waits until they have hold of its front edge, both ways.
+		// Closing from wide open, it first comes down to where the hands can reach it.
+		const wantsOpen = lidGoal > lap.lid + 0.01;
+		// (the last bit of closing is free: the hands are on it anyway, and nothing can get stuck)
+		const closing = lidGoal < lap.lid - 0.01 && lap.lid > 0.3;
+		if (wantsOpen && lap.lid < GUIDE_UNTIL && !holding && typing < 0.02) lidGoal = lap.lid;
+		if (closing && (typing > 0.02 || !holding))
+			lidGoal = Math.max(lidGoal, Math.min(lap.lid, GUIDE_UNTIL));
 
-		lap.x = damp(lap.x, posGoal[0], 4 * fast, dt);
-		lap.y = damp(lap.y, posGoal[1], 4 * fast, dt);
-		lap.z = damp(lap.z, posGoal[2], 4 * fast, dt);
+		lap.x = damp(lap.x, posGoal[0], 6.5 * fast, dt);
+		lap.y = damp(lap.y, posGoal[1], 6.5 * fast, dt);
+		lap.z = damp(lap.z, posGoal[2], 6.5 * fast, dt);
 		if (posGoal === goal.pos)
-			lap.rotY = damp(lap.rotY, lap.rotY + turn(lap.rotY, goal.rotY), 3.6 * fast, dt);
-		lap.lid = damp(lap.lid, lidGoal, (lidGoal > lap.lid ? 3.2 : 6) * fast, dt);
+			lap.rotY = damp(lap.rotY, lap.rotY + turn(lap.rotY, goal.rotY), 6 * fast, dt);
+		if (stage.reducedMotion) {
+			lap.lid = lidGoal;
+			lidVel = 0;
+		} else {
+			const omega = lidGoal > lap.lid ? 4.2 : 7.5;
+			lidVel += (omega * omega * (lidGoal - lap.lid) - 2 * omega * lidVel) * dt;
+			lap.lid = Math.max(0, lap.lid + lidVel * dt);
+		}
 		const liftGoal = 0.1 * Math.min(1, moving / 0.3);
 		lap.lift = damp(lap.lift, stage.reducedMotion ? 0 : liftGoal, 6 * fast, dt);
 
@@ -172,15 +220,15 @@
 		if (screenReady !== lastScreen) stage.screenReady = lastScreen = screenReady;
 
 		// ---- CV paper: comes up to read once the laptop is out of the way
-		const showPaper =
-			view === 'experience' && Math.hypot(lap.x - aside.pos[0], lap.z - aside.pos[2]) < 0.2;
+		// The CV comes up as soon as the closed laptop is on its way to the armrest
+		const showPaper = view === 'experience' && lap.lid < 0.1 && lap.x > 0.2;
 		const p = showPaper ? PAPER_POSES.held : PAPER_POSES.stowed;
-		const pk = showPaper ? 5 : 7;
+		const pk = showPaper ? 7.5 : 8;
 		sheet.x = damp(sheet.x, p.pos[0], pk * fast, dt);
 		sheet.y = damp(sheet.y, p.pos[1], pk * fast, dt);
 		sheet.z = damp(sheet.z, p.pos[2], pk * fast, dt);
 		sheet.rotX = damp(sheet.rotX, p.rotX, pk * fast, dt);
-		sheet.scale = damp(sheet.scale, p.scale, (showPaper ? 6 : 10) * fast, dt);
+		sheet.scale = damp(sheet.scale, p.scale, (showPaper ? 9 : 10) * fast, dt);
 		paper.position.set(sheet.x, sheet.y, sheet.z);
 		paper.rotation.set(sheet.rotX, p.rotY, 0);
 		paper.scale.setScalar(Math.max(sheet.scale, 0.001));
@@ -197,14 +245,29 @@
 		const holdingPaper = sheet.scale > 0.5;
 		const onLap = lap.x < 0.3;
 		const tap = (o: number) => Math.max(0, Math.sin(time * 11 + o)) * 0.014;
+		// Type once the lid is past the hands' reach on its way open. As soon as it should close,
+		// the hands head back up to meet it while it comes down, so nothing has to wait.
+		const typingGoal = onLap && lap.lid >= GUIDE_UNTIL - 0.01 && goal.lid > GUIDE_UNTIL ? 1 : 0;
+		// Down to the keyboard at an easy pace; back up to the lid quickly when it's time to close
+		typing = stage.reducedMotion
+			? typingGoal
+			: damp(typing, typingGoal, typingGoal > typing ? 3.2 : 7, dt);
 
 		if (holdingPaper) {
 			toLocal(tmpL, paper, PAPER.width / 2 + 0.012, -0.04, -0.012);
 			toLocal(tmpR, paper, -PAPER.width / 2 - 0.012, -0.04, -0.012);
-		} else if (onLap && lap.lid > 0.6) {
-			// Typing on the keyboard
-			toLocal(tmpL, laptop, 0.085, LAPTOP.base + ARM.hand * 0.6 + tap(0), 0.0);
-			toLocal(tmpR, laptop, -0.085, LAPTOP.base + ARM.hand * 0.6 + tap(1.7), 0.0);
+		} else if (onLap && (lap.lid > 0.06 || wantsOpen)) {
+			// Lifting the lid by its lip, then letting go and moving down to type. The hands travel
+			// over the top edge and in front of the screen, never through it.
+			edge(gripL, 0.11);
+			edge(gripR, -0.11);
+			const keys = LAPTOP.base + ARM.hand * 0.6;
+			toLocal(keyL, laptop, 0.085, keys + tap(0) * typing, 0.0);
+			toLocal(keyR, laptop, -0.085, keys + tap(1.7) * typing, 0.0);
+			const e = easeInOut(typing);
+			const arc = Math.sin(Math.PI * e);
+			tmpL.lerpVectors(gripL, keyL, e).add(tmpArc.set(0, 0.05 * arc, -0.07 * arc));
+			tmpR.lerpVectors(gripR, keyR, e).add(tmpArc);
 		} else if (onLap) {
 			// Resting on the closed lid, drumming now and then
 			const drum = (o: number) => Math.max(0, Math.sin(time * 9 + o)) * 0.012;
@@ -225,9 +288,15 @@
 			hands.r.copy(tmpR);
 			hands.ready = true;
 		}
-		const hk = 1 - Math.exp(-14 * fast * dt);
+		// Once they hold the lid the hands ride exactly on its edge instead of trailing behind it
+		const onEdge = holding && typing < 0.02;
+		const hk = onEdge ? 1 : 1 - Math.exp(-14 * fast * dt);
 		hands.l.lerp(tmpL, hk);
 		hands.r.lerp(tmpR, hk);
+		const reached =
+			edge(tmpL, 0.11).distanceTo(hands.l) < 0.03 && edge(tmpR, -0.11).distanceTo(hands.r) < 0.03;
+		if (reached && typing < 0.02 && onLap) holding = true;
+		if (typing > 0.02 || !onLap || (lap.lid <= 0.06 && !wantsOpen)) holding = false;
 		solveArm(-1, hands.l, upperL, foreL);
 		solveArm(1, hands.r, upperR, foreR);
 

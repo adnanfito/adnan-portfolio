@@ -83,7 +83,7 @@
 			flight.c2.copy(EYES);
 		}
 		flight.povToPov = povToPov;
-		flight.duration = povToPov ? 2.1 : intoPov || outOfPov ? 1.9 : 1.2;
+		flight.duration = povToPov ? 1.5 : intoPov || outOfPov ? 1.9 : 1.2;
 		flight.pov = intoPov || outOfPov;
 		flight.view = view;
 	};
