@@ -146,8 +146,8 @@ export const socials = [
 ] as const;
 
 export const navLinks = [
-	{ label: 'home', href: '#home' },
-	{ label: 'projects', href: '#projects' },
-	{ label: 'experience', href: '#experience' },
-	{ label: 'contact', href: '#contact' }
+	{ label: 'Home', view: 'home' },
+	{ label: 'Projects', view: 'projects' },
+	{ label: 'Experience', view: 'experience' },
+	{ label: 'Contact', view: 'contact' }
 ] as const;

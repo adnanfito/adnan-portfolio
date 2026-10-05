@@ -1,47 +1,51 @@
 @import 'tailwindcss';
 
 @theme {
-	--font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	--font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 
-	--color-void: #010402;
-	--color-panel: #030a06;
-	--color-matrix: #00ff66;
-	--color-matrix-soft: #b9f7cd;
-	--color-matrix-dim: #6fae84;
-	--color-matrix-line: #0d3b1f;
-	--color-string: #f6d97a;
-	--color-keyword: #7fd0ff;
-	--color-prop: #ff8fb1;
+	/* Pastel peach room. `cream` is the page, `paper` the cards, `ink` the text */
+	--color-cream: #f7e6d9;
+	--color-cream-deep: #efd6c4;
+	--color-paper: #fffaf6;
+	--color-ink: #2e2a26;
+	--color-muted: #8c7a6d;
+	--color-line: #ecd7c7;
+	--color-peach: #e8875a;
+	--color-lilac: #b9a7f0;
+	--color-sage: #8fbf9a;
+	--color-rose: #f2a7b5;
+	--color-sky: #93a9dd;
 }
 
 @layer base {
 	html {
-		color-scheme: dark;
-		scroll-behavior: smooth;
-		scroll-padding-top: 5rem;
-		background: var(--color-void);
+		color-scheme: light;
+		background: var(--color-cream);
 	}
 
 	body {
-		@apply font-mono text-matrix-soft antialiased;
+		@apply bg-cream font-sans text-ink antialiased;
 		min-height: 100dvh;
 		overflow-x: hidden;
 	}
 
+	/* The 3D room is a single fixed screen; the flat page scrolls */
+	html.js:not(.no-webgl) body {
+		overflow: hidden;
+		overscroll-behavior: none;
+	}
+
 	::selection {
-		background: var(--color-matrix);
-		color: var(--color-void);
+		background: var(--color-peach);
+		color: var(--color-ink);
 	}
 
 	:focus-visible {
-		outline: 2px solid var(--color-matrix);
+		outline: 2px solid var(--color-ink);
 		outline-offset: 3px;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		html {
-			scroll-behavior: auto;
-		}
 		*,
 		*::before,
 		*::after {
@@ -53,62 +57,39 @@
 }
 
 @layer components {
-	/* Glassy terminal / editor window */
-	.window {
-		@apply rounded-lg border border-matrix-line bg-panel/80 backdrop-blur-md;
-		box-shadow:
-			0 0 0 1px rgb(0 255 102 / 0.04),
-			0 0 40px -10px rgb(0 255 102 / 0.25),
-			inset 0 1px 0 rgb(185 247 205 / 0.04);
+	.pill {
+		@apply inline-flex items-center gap-2 rounded-full border border-ink/15 bg-paper/80 px-4 py-2 text-sm font-semibold text-ink backdrop-blur transition hover:-translate-y-0.5 hover:border-ink/30 hover:bg-paper;
 	}
 
-	.window-bar {
-		@apply flex items-center gap-2 border-b border-matrix-line px-4 py-2.5 text-xs text-matrix-dim;
+	.pill-solid {
+		@apply inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition hover:-translate-y-0.5 hover:bg-ink/85;
 	}
 
-	.dot {
-		@apply size-2.5 rounded-full;
+	.chip {
+		@apply inline-flex items-center rounded-full bg-cream-deep px-2.5 py-0.5 text-xs font-medium text-ink/75;
 	}
 
-	.glow {
-		text-shadow:
-			0 0 6px rgb(0 255 102 / 0.65),
-			0 0 22px rgb(0 255 102 / 0.3);
+	/* Things that exist in the room as real paper / a lit screen stay light inside */
+	.light-surface {
+		--color-cream: #f2f2f0;
+		--color-cream-deep: #e6e6e4;
+		--color-paper: #fdfdfc;
+		--color-ink: #1d1d1f;
+		--color-muted: #85858a;
+		--color-line: #dededc;
+		--color-peach: #c98a1e;
+		color-scheme: light;
 	}
 
-	.prompt::before {
-		content: '$ ';
-		@apply text-matrix;
+	.card {
+		@apply rounded-3xl border border-line bg-paper shadow-[0_20px_50px_-30px_rgb(46_42_38/0.35)];
 	}
 
-	.btn {
-		@apply inline-flex items-center gap-2 rounded border border-matrix/40 px-4 py-2 text-sm text-matrix transition-colors hover:bg-matrix hover:text-void;
+	/* Semantic copy of the content: visible without WebGL, screen-reader only with it */
+	html.js:not(.no-webgl) .flat-only {
+		@apply sr-only;
 	}
-
-	.btn-solid {
-		@apply inline-flex items-center gap-2 rounded border border-matrix bg-matrix px-4 py-2 text-sm font-semibold text-void transition-colors hover:bg-matrix-soft;
-	}
-
-	.cursor {
-		@apply ml-0.5 inline-block h-[1.1em] w-[0.6ch] translate-y-[0.15em] bg-matrix;
-		animation: blink 1s steps(1) infinite;
-	}
-
-	/* CRT scanlines over the whole page */
-	.scanlines {
-		@apply pointer-events-none fixed inset-0 z-50;
-		background: repeating-linear-gradient(
-			to bottom,
-			rgb(0 0 0 / 0) 0,
-			rgb(0 0 0 / 0) 2px,
-			rgb(0 0 0 / 0.18) 3px
-		);
-		mix-blend-mode: multiply;
-	}
-}
-
-@keyframes blink {
-	50% {
-		opacity: 0;
+	html.no-webgl .room-only {
+		display: none !important;
 	}
 }

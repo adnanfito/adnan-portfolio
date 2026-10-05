@@ -31,7 +31,6 @@
 	"dependencies": {
 		"@threlte/core": "^8.6.1",
 		"@threlte/extras": "^9.22.0",
-		"postprocessing": "^6.39.5",
 		"three": "^0.186.1"
 	}
 }

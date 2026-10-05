@@ -1,6 +1,16 @@
 # adnan-portfolio
 
-Personal portfolio — SvelteKit + [Threlte](https://threlte.xyz) (Three.js), Matrix / terminal theme. Projects are loaded from a Notion database.
+Personal portfolio — SvelteKit + [Threlte](https://threlte.xyz) (Three.js). The site is a small 3D room
+(clay style, cream palette, everything built from primitives in `src/lib/components/room/`):
+
+- **Projects** — the character turns the laptop round, opens it and the camera zooms into the screen,
+  which is a little browser listing the projects (on phones it opens fullscreen).
+- **Experience** — the laptop goes onto the armrest and the character holds up the CV.
+- **Contact** — the character waves next to a contact card.
+
+Views live in the URL hash (`#projects`, `#projects/<slug>`, `#experience`, `#contact`), Esc goes back.
+Without WebGL the same content is shown as a plain page (`Fallback.svelte`), which is also what
+crawlers and screen readers get. Projects are loaded from a Notion database.
 
 ## Setup
 
