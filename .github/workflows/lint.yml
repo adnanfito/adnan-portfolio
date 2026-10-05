@@ -6,16 +6,20 @@ on:
       - main
 
 jobs:
-  lint:
-    name: Eslint, Typescript, prettier
+  check:
+    name: svelte-check, prettier, build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
       - name: Install dependencies
-        run: npm install
-      - name: ESLint
-        run: npm run lint
+        run: npm ci
       - name: Type check
-        run: npm run typecheck
+        run: npm run check
       - name: Prettier
         run: npm run format:check
+      - name: Build
+        run: npm run build

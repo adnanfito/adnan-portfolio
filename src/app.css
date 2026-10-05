@@ -1,0 +1,114 @@
+@import 'tailwindcss';
+
+@theme {
+	--font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+	--color-void: #010402;
+	--color-panel: #030a06;
+	--color-matrix: #00ff66;
+	--color-matrix-soft: #b9f7cd;
+	--color-matrix-dim: #6fae84;
+	--color-matrix-line: #0d3b1f;
+	--color-string: #f6d97a;
+	--color-keyword: #7fd0ff;
+	--color-prop: #ff8fb1;
+}
+
+@layer base {
+	html {
+		color-scheme: dark;
+		scroll-behavior: smooth;
+		scroll-padding-top: 5rem;
+		background: var(--color-void);
+	}
+
+	body {
+		@apply font-mono text-matrix-soft antialiased;
+		min-height: 100dvh;
+		overflow-x: hidden;
+	}
+
+	::selection {
+		background: var(--color-matrix);
+		color: var(--color-void);
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--color-matrix);
+		outline-offset: 3px;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+		*,
+		*::before,
+		*::after {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+		}
+	}
+}
+
+@layer components {
+	/* Glassy terminal / editor window */
+	.window {
+		@apply rounded-lg border border-matrix-line bg-panel/80 backdrop-blur-md;
+		box-shadow:
+			0 0 0 1px rgb(0 255 102 / 0.04),
+			0 0 40px -10px rgb(0 255 102 / 0.25),
+			inset 0 1px 0 rgb(185 247 205 / 0.04);
+	}
+
+	.window-bar {
+		@apply flex items-center gap-2 border-b border-matrix-line px-4 py-2.5 text-xs text-matrix-dim;
+	}
+
+	.dot {
+		@apply size-2.5 rounded-full;
+	}
+
+	.glow {
+		text-shadow:
+			0 0 6px rgb(0 255 102 / 0.65),
+			0 0 22px rgb(0 255 102 / 0.3);
+	}
+
+	.prompt::before {
+		content: '$ ';
+		@apply text-matrix;
+	}
+
+	.btn {
+		@apply inline-flex items-center gap-2 rounded border border-matrix/40 px-4 py-2 text-sm text-matrix transition-colors hover:bg-matrix hover:text-void;
+	}
+
+	.btn-solid {
+		@apply inline-flex items-center gap-2 rounded border border-matrix bg-matrix px-4 py-2 text-sm font-semibold text-void transition-colors hover:bg-matrix-soft;
+	}
+
+	.cursor {
+		@apply ml-0.5 inline-block h-[1.1em] w-[0.6ch] translate-y-[0.15em] bg-matrix;
+		animation: blink 1s steps(1) infinite;
+	}
+
+	/* CRT scanlines over the whole page */
+	.scanlines {
+		@apply pointer-events-none fixed inset-0 z-50;
+		background: repeating-linear-gradient(
+			to bottom,
+			rgb(0 0 0 / 0) 0,
+			rgb(0 0 0 / 0) 2px,
+			rgb(0 0 0 / 0.18) 3px
+		);
+		mix-blend-mode: multiply;
+	}
+}
+
+@keyframes blink {
+	50% {
+		opacity: 0;
+	}
+}
